@@ -54,7 +54,12 @@ public class Inscription extends HttpServlet {
 		user.setPassword(pwd);
 
 		session.setAttribute("user", user);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+		if (user.isConnect()) {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+		} else {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+		}
+
 	}
 
 }

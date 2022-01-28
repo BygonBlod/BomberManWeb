@@ -25,6 +25,7 @@ public class UserSQL {
 			resultat = query.executeQuery();
 			// resultat = statement.executeQuery("Select * from Users ");
 			while (resultat.next()) {
+				int idU = resultat.getInt("id");
 				String nameU = resultat.getString("name");
 				String pwdU = resultat.getString("password");
 				return true;
