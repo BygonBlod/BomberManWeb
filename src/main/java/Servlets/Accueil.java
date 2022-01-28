@@ -33,9 +33,13 @@ public class Accueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
-		session.setAttribute("user", user);
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			UserSQL uSQL = new UserSQL();
+			user = new User(uSQL);
+			session.setAttribute("user", user);
+		}
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 	}
 

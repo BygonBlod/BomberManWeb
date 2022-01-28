@@ -23,7 +23,6 @@ public class UserSQL {
 			query.setString(1, name);
 			query.setString(2, pwd);
 			resultat = query.executeQuery();
-			// resultat = statement.executeQuery("Select * from Users ");
 			while (resultat.next()) {
 				int idU = resultat.getInt("id");
 				String nameU = resultat.getString("name");
