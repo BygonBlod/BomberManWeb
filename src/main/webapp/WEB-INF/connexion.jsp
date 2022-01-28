@@ -5,16 +5,19 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Test</title>
+        <title>Connexion</title>
     </head>
     <body>
     <%@ include file="menu.jsp"  %>
-    <form action="" method="get" >
-		    <label for="name">Enter your name: </label>
+    <c:if test="${sessionScope.user.isWrongConnect()}">
+		<p>Mauvais pseudo ou mot de passe</p>
+	</c:if>
+    <form action="" method="post" >
+		    <label for="name">Entrer votre pseudo: </label>
 		    <input type="text" name="name" id="name" required></br>
-		    <label for="pwd">Enter your password: </label>
+		    <label for="pwd">Entrer votre mot de passe: </label>
 		    <input type="password" name="pwd" id="pwd" required></br>
-		    <input type="submit" value="Connection!">
+		    <input type="submit" value="Connexion!">
 	</form>
 	<p>Si vous n'avez pas de compte vous pouvez vous inscrire ici :<a href="/Oui/inscription">inscription</a></p>
     </body>

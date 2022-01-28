@@ -8,13 +8,13 @@
 <body>
 	<%@ include file="menu.jsp"  %>
 	<c:if test="${sessionScope.user.exist()}">
-		<p>Cette utilisateur existe déjà</p>
+		<p>Cet utilisateur existe déjà</p>
 	</c:if>
 
     <form action="inscription" method="post" >
-		    <label for="name">Enter your name: </label>
+		    <label for="name">entrer votre pseudo: </label>
 		    <input type="text" name="name" id="name" required></br
-		    <label for="pwd">Enter your password: </label>
+		    <label for="pwd">entrer votre mot de passe : </label>
 		    <input type="password" name="pwd" id="pwd" required></br>
 		    <input type="submit" value="Inscription!">
 	</form>

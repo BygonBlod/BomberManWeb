@@ -13,12 +13,12 @@
   </servlet-mapping>
   
   <servlet>
-  	<servlet-name>Connection</servlet-name>
-  	<servlet-class>Servlets.Connection</servlet-class>
+  	<servlet-name>Connexion</servlet-name>
+  	<servlet-class>Servlets.Connexion</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Connection</servlet-name>
-  	<url-pattern>/connection</url-pattern>
+  	<servlet-name>Connexion</servlet-name>
+  	<url-pattern>/connexion</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -28,6 +28,15 @@
   <servlet-mapping>
   	<servlet-name>Inscription</servlet-name>
   	<url-pattern>/inscription</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>Deconnexion</servlet-name>
+  	<servlet-class>Servlets.Deconnexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Deconnexion</servlet-name>
+  	<url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
   
   
