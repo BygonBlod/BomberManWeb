@@ -37,6 +37,7 @@ public class User {
 
 	public void deconnection() {
 		if (isConnect) {
+			System.out.println("déconnection");
 			this.isConnect = false;
 		}
 	}
