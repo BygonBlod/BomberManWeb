@@ -36,11 +36,9 @@ public class SessionFilter implements Filter {
 
 		if (null == login) {
 			response.sendRedirect("/Oui/");
-			System.out.println("login null");
 			return;
 		}
 		if (!login.isConnect()) {
-			System.out.println("pas co");
 			response.sendRedirect("/Oui/");
 			return;
 		}

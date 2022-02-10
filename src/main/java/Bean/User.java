@@ -6,6 +6,8 @@ public class User {
 	private int id;
 	private String name;
 	private String password;
+	private int nbParty;
+	private int nbWin;
 	private boolean isConnect;
 	private boolean wrongConnect;
 	private UserSQL userSql;
@@ -13,6 +15,8 @@ public class User {
 	public User(UserSQL u) {
 		this.userSql = u;
 		this.wrongConnect = false;
+		nbParty = 0;
+		nbWin = 0;
 	}
 
 	public boolean exist() {
