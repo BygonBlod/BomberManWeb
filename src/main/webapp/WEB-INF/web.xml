@@ -44,7 +44,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Deconnexion</servlet-name>
-  	<url-pattern>/deconnexion</url-pattern>
+  	<url-pattern>/connecter/deconnexion</url-pattern>
   </servlet-mapping>
   
    <servlet>

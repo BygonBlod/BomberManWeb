@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Bean.User;
+
 public class UserSQL {
 	private Connection connexion;
 
@@ -14,7 +16,7 @@ public class UserSQL {
 
 	}
 
-	public boolean connexion(String name, String pwd) {
+	public User connexion(String name, String pwd) {
 
 		PreparedStatement query = null;
 		ResultSet resultat = null;
@@ -27,7 +29,12 @@ public class UserSQL {
 				int idU = resultat.getInt("id");
 				String nameU = resultat.getString("name");
 				String pwdU = resultat.getString("password");
-				return true;
+				User res = new User();
+				int nbP = resultat.getInt("nbParty");
+				int nbW = resultat.getInt("nbWin");
+				res.setNbParty(nbP);
+				res.setNbWin(nbW);
+				return res;
 			}
 			query.close();
 			resultat.close();
@@ -36,7 +43,7 @@ public class UserSQL {
 			e.printStackTrace();
 		}
 
-		return false;
+		return null;
 	}
 
 	public boolean ajouterUser(String name, String pwd) {
@@ -44,9 +51,11 @@ public class UserSQL {
 		int resultat = -1;
 		System.out.println("ajout");
 		try {
-			query = connexion.prepareStatement("insert into Users (name,password) values (?,?) ;");
+			query = connexion.prepareStatement("insert into Users (name,password,nbParty,nbWin) values (?,?,?,?) ;");
 			query.setString(1, name);
 			query.setString(2, pwd);
+			query.setInt(3, 0);
+			query.setInt(4, 0);
 			resultat = query.executeUpdate();
 
 		} catch (SQLException e) {

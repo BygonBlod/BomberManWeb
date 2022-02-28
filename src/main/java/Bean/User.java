@@ -19,8 +19,14 @@ public class User {
 		nbWin = 0;
 	}
 
+	public User() {
+		this.wrongConnect = false;
+		nbParty = 0;
+		nbWin = 0;
+	}
+
 	public boolean exist() {
-		if (userSql.connexion(name, password))
+		if (userSql.connexion(name, password) != null)
 			return true;
 		else
 			return false;
@@ -28,9 +34,12 @@ public class User {
 
 	public void connection() {
 		if (!isConnect) {
-			if (userSql.connexion(name, password)) {
+			User use = userSql.connexion(name, password);
+			if (use != null) {
 				this.isConnect = true;
 				this.wrongConnect = false;
+				this.nbParty = use.getNbParty();
+				this.nbWin = use.getNbWin();
 				System.out.println("vous êtes connecté");
 			} else {
 				this.wrongConnect = true;
