@@ -52,6 +52,7 @@ public class Inscription extends HttpServlet {
 		}
 		user.setName(name);
 		user.setPassword(pwd);
+		user.inscription();
 
 		session.setAttribute("user", user);
 		if (user.isConnect()) {

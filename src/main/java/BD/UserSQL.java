@@ -42,6 +42,7 @@ public class UserSQL {
 	public boolean ajouterUser(String name, String pwd) {
 		PreparedStatement query = null;
 		int resultat = -1;
+		System.out.println("ajout");
 		try {
 			query = connexion.prepareStatement("insert into Users (name,password) values (?,?) ;");
 			query.setString(1, name);
@@ -51,9 +52,9 @@ public class UserSQL {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if (resultat == -1)
+		if (resultat == -1) {
 			return false;
-		else
+		} else
 			return true;
 	}
 

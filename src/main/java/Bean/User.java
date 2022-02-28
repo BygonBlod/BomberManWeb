@@ -81,4 +81,28 @@ public class User {
 		this.wrongConnect = wrongConnect;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getNbParty() {
+		return nbParty;
+	}
+
+	public void setNbParty(int nbParty) {
+		this.nbParty = nbParty;
+	}
+
+	public int getNbWin() {
+		return nbWin;
+	}
+
+	public void setNbWin(int nbWin) {
+		this.nbWin = nbWin;
+	}
+
 }
