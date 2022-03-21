@@ -13,16 +13,16 @@ import BD.UserSQL;
 import Bean.User;
 
 /**
- * Servlet implementation class ConnexionApi
+ * Servlet implementation class EndParty
  */
-@WebServlet("/ConnexionApi")
-public class ConnexionApi extends HttpServlet {
+@WebServlet("/EndPartyApi")
+public class EndPartyApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ConnexionApi() {
+	public EndPartyApi() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,21 +35,22 @@ public class ConnexionApi extends HttpServlet {
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
 		System.out.println("token " + token2);
-		if (!token2.equals("z32iG.4_N7|{)DjcbDU4")) {
+		String name = request.getParameter("name");
+		String win = request.getParameter("win");
+		System.out.println(name + " " + win);
+		if (!token2.equals("583-.mZVh7S*k(xY9wB;")) {
 			response.sendRedirect(request.getContextPath() + "/Accueil");
 		}
+
 		UserSQL uSQL = new UserSQL();
 		User user = new User(uSQL);
-		String name = request.getParameter("name");
-		String pwd = request.getParameter("pwd");
-		System.out.println(name + " " + pwd);
 		user.setName(name);
-		user.setPassword(pwd);
-		user.connection();
+
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.isConnect()) {
+		if (user.changeNBParty(win)) {
 			output.println("success");
 		}
+
 	}
 
 	/**
@@ -58,20 +59,8 @@ public class ConnexionApi extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
-		String name = request.getParameter("name");
-		String pwd = request.getParameter("pwd");
-		System.out.println(name + " " + pwd);
-		System.out.println(request.getAttributeNames().toString());
-		user.setName(name);
-		user.setPassword(pwd);
-		user.connection();
-		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.isConnect()) {
-			output.println("success");
-		}
 	}
 
 }

@@ -114,4 +114,8 @@ public class User {
 		this.nbWin = nbWin;
 	}
 
+	public boolean changeNBParty(String win) {
+		return userSql.changeNbParty(name, Integer.parseInt(win));
+	}
+
 }

@@ -78,15 +78,14 @@ public class UserSQL {
 		}
 	}
 
-	public boolean changeNbParty(String name, int nbP, int nbW) {
+	public boolean changeNbParty(String name, int nbW) {
 		PreparedStatement query = null;
 		int resultat = -1;
-		System.out.println("ajout");
 		try {
-			query = connexion.prepareStatement("update Users set nbParty=? ,nbWin=? where name=? ;");
-			query.setString(3, name);
-			query.setInt(1, nbP);
-			query.setInt(2, nbW);
+			query = connexion
+					.prepareStatement("update Users set nbParty=nbParty +1 ,nbWin=nbWin+" + nbW + " where name=? ;");
+			query.setString(1, name);
+			System.out.println(nbW);
 			resultat = query.executeUpdate();
 
 		} catch (SQLException e) {
