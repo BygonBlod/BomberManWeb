@@ -38,18 +38,6 @@ public class ConnexionApi extends HttpServlet {
 		if (!token2.equals("z32iG.4_N7|{)DjcbDU4")) {
 			response.sendRedirect(request.getContextPath() + "/Accueil");
 		}
-		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
-		String name = request.getParameter("name");
-		String pwd = request.getParameter("pwd");
-		System.out.println(name + " " + pwd);
-		user.setName(name);
-		user.setPassword(pwd);
-		user.connection();
-		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.isConnect()) {
-			output.println("success");
-		}
 	}
 
 	/**
@@ -63,7 +51,7 @@ public class ConnexionApi extends HttpServlet {
 		User user = new User(uSQL);
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
-		System.out.println(name + " " + pwd);
+		System.out.println(name + " : " + pwd);
 		System.out.println(request.getAttributeNames().toString());
 		user.setName(name);
 		user.setPassword(pwd);

@@ -35,20 +35,8 @@ public class EndPartyApi extends HttpServlet {
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
 		System.out.println("token " + token2);
-		String name = request.getParameter("name");
-		String win = request.getParameter("win");
-		System.out.println(name + " " + win);
 		if (!token2.equals("583-.mZVh7S*k(xY9wB;")) {
 			response.sendRedirect(request.getContextPath() + "/Accueil");
-		}
-
-		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
-		user.setName(name);
-
-		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.changeNBParty(win)) {
-			output.println("success");
 		}
 
 	}
@@ -61,6 +49,17 @@ public class EndPartyApi extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		String name = request.getParameter("name");
+		String win = request.getParameter("win");
+		System.out.println(name + " " + win);
+		UserSQL uSQL = new UserSQL();
+		User user = new User(uSQL);
+		user.setName(name);
+
+		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
+		if (user.changeNBParty(win)) {
+			output.println("success");
+		}
 	}
 
 }
