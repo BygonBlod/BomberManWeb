@@ -1,7 +1,9 @@
 package API;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BD.UserSQL;
-import Bean.User;
 
 /**
  * Servlet implementation class EndParty
@@ -35,8 +36,15 @@ public class EndPartyApi extends HttpServlet {
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
 		System.out.println("token " + token2);
-		if (!token2.equals("583-.mZVh7S*k(xY9wB;")) {
-			response.sendRedirect(request.getContextPath() + "/Accueil");
+		try (InputStream input = EndPartyApi.class.getClassLoader().getResourceAsStream("/config.properties")) {
+			Properties prop = new Properties();
+			prop.load(input);
+			String token = prop.getProperty("web.change.token");
+			if (!token2.equals(token)) {
+				response.sendRedirect(request.getContextPath() + "/Accueil");
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 
 	}
@@ -50,14 +58,12 @@ public class EndPartyApi extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String name = request.getParameter("name");
-		String win = request.getParameter("win");
+		int win = Integer.parseInt(request.getParameter("win"));
 		System.out.println(name + " " + win);
 		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
-		user.setName(name);
 
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.changeNBParty(win)) {
+		if (uSQL.changeNbParty(name, win)) {
 			output.println("success");
 		}
 	}

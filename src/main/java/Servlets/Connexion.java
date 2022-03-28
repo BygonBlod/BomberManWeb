@@ -52,7 +52,16 @@ public class Connexion extends HttpServlet {
 		}
 		user.setName(name);
 		user.setPassword(pwd);
-		user.connection();
+		UserSQL uSQL = new UserSQL();
+		User u = uSQL.connexion(name, pwd);
+		if (u != null) {
+			user.setConnect(true);
+			user.setWrongConnect(false);
+			user.setNbParty(u.getNbParty());
+			user.setNbWin(u.getNbWin());
+
+		}
+		System.out.println(user.isConnect());
 		session.setAttribute("user", user);
 		if (user.isConnect()) {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);

@@ -1,8 +1,11 @@
 package BD;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class SQLConnector {
 	private static SQLConnector instance = null;
@@ -18,16 +21,25 @@ public class SQLConnector {
 
 	public static SQLConnector getInstance() {
 		if (instance == null) {
-			try {
+
+			try (InputStream input = SQLConnector.class.getClassLoader().getResourceAsStream("/config.properties")) {
+
+				Properties prop = new Properties();
+				prop.load(input);
+				String name = prop.getProperty("db.name");
+				String user = prop.getProperty("db.user");
+				String pwd = prop.getProperty("db.password");
+
 				Class.forName("org.mariadb.jdbc.Driver");
-				instance = new SQLConnector("jdbc:mariadb://localhost:3306/BombermanWeb", "etud", "Bygon");
+				instance = new SQLConnector("jdbc:mariadb://localhost:3306/" + name, user, pwd);
 				return instance;
 			} catch (ClassNotFoundException e) {
 				System.out.println("Classe non trouver");
 				e.printStackTrace();
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		} else {
-			System.out.println("existe");
 			return instance;
 		}
 		return null;

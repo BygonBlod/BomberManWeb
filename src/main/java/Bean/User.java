@@ -10,10 +10,8 @@ public class User {
 	private int nbWin;
 	private boolean isConnect;
 	private boolean wrongConnect;
-	private UserSQL userSql;
 
 	public User(UserSQL u) {
-		this.userSql = u;
 		this.wrongConnect = false;
 		nbParty = 0;
 		nbWin = 0;
@@ -25,40 +23,10 @@ public class User {
 		nbWin = 0;
 	}
 
-	public boolean exist() {
-		if (userSql.connexion(name, password) != null)
-			return true;
-		else
-			return false;
-	}
-
-	public void connection() {
-		if (!isConnect) {
-			User use = userSql.connexion(name, password);
-			if (use != null) {
-				this.isConnect = true;
-				this.wrongConnect = false;
-				this.nbParty = use.getNbParty();
-				this.nbWin = use.getNbWin();
-				System.out.println("vous êtes connecté");
-			} else {
-				this.wrongConnect = true;
-				System.out.println("ce compte n'existe pas");
-			}
-		}
-	}
-
 	public void deconnection() {
 		if (isConnect) {
 			System.out.println("déconnection");
 			this.isConnect = false;
-		}
-	}
-
-	public void inscription() {
-		if (!this.exist()) {
-			if (userSql.ajouterUser(name, password))
-				this.isConnect = true;
 		}
 	}
 
@@ -112,10 +80,6 @@ public class User {
 
 	public void setNbWin(int nbWin) {
 		this.nbWin = nbWin;
-	}
-
-	public boolean changeNBParty(String win) {
-		return userSql.changeNbParty(name, Integer.parseInt(win));
 	}
 
 }

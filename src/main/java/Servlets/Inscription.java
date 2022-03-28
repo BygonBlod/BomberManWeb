@@ -52,7 +52,14 @@ public class Inscription extends HttpServlet {
 		}
 		user.setName(name);
 		user.setPassword(pwd);
-		user.inscription();
+		UserSQL uSQL = new UserSQL();
+		if (uSQL.exist(name)) {
+			user.setWrongConnect(true);
+		} else {
+			uSQL.ajouterUser(name, pwd);
+			user.setConnect(true);
+			user.setWrongConnect(false);
+		}
 
 		session.setAttribute("user", user);
 		if (user.isConnect()) {

@@ -67,6 +67,26 @@ public class UserSQL {
 			return true;
 	}
 
+	public boolean exist(String name) {
+		PreparedStatement query = null;
+		ResultSet resultat = null;
+		try {
+			query = connexion.prepareStatement("select * from Users where name=?  ;");
+			query.setString(1, name);
+			resultat = query.executeQuery();
+			while (resultat.next()) {
+				return true;
+			}
+			query.close();
+			resultat.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
 	public void supprimerUser(String name) {
 		PreparedStatement query = null;
 		try {

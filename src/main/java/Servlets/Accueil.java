@@ -39,6 +39,11 @@ public class Accueil extends HttpServlet {
 			user = new User(uSQL);
 			session.setAttribute("user", user);
 		}
+		UserSQL useSQL = (UserSQL) session.getAttribute("userSQL");
+		if (user == null) {
+			UserSQL uSQL = new UserSQL();
+			session.setAttribute("userSQL", uSQL);
+		}
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 	}

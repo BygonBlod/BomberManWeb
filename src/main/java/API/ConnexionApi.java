@@ -1,7 +1,9 @@
 package API;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BD.UserSQL;
-import Bean.User;
 
 /**
  * Servlet implementation class ConnexionApi
@@ -35,9 +36,17 @@ public class ConnexionApi extends HttpServlet {
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
 		System.out.println("token " + token2);
-		if (!token2.equals("z32iG.4_N7|{)DjcbDU4")) {
-			response.sendRedirect(request.getContextPath() + "/Accueil");
+		try (InputStream input = ConnexionApi.class.getClassLoader().getResourceAsStream("/config.properties")) {
+			Properties prop = new Properties();
+			prop.load(input);
+			String token = prop.getProperty("web.connect.token");
+			if (!token2.equals(token)) {
+				response.sendRedirect(request.getContextPath() + "/Accueil");
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -48,16 +57,12 @@ public class ConnexionApi extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 		UserSQL uSQL = new UserSQL();
-		User user = new User(uSQL);
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
 		System.out.println(name + " : " + pwd);
 		System.out.println(request.getAttributeNames().toString());
-		user.setName(name);
-		user.setPassword(pwd);
-		user.connection();
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (user.isConnect()) {
+		if (uSQL.connexion(name, pwd) != null) {
 			output.println("success");
 		}
 	}

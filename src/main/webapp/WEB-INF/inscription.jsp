@@ -7,7 +7,7 @@
     </head>
     <body>
     <%@ include file="menu.jsp"  %>
-    <c:if test="${sessionScope.user.exist()}">
+    <c:if test="${user.isWrongConnect()}">
 		<p>Ce compte existe déjà</p>
 	</c:if>
     <form action="" method="post" >
