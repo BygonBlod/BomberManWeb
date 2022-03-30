@@ -22,6 +22,7 @@ public class UserSQL {
 
 		PreparedStatement query = null;
 		ResultSet resultat = null;
+		pwd = hash(pwd);
 		try {
 			query = connexion.prepareStatement("select * from Users where name=? and password=? ;");
 			query.setString(1, name);
