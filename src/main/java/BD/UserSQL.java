@@ -136,7 +136,6 @@ public class UserSQL {
 				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
 			}
 			res = sb.toString();
-			System.out.println("En format hexa : " + sb.toString());
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
