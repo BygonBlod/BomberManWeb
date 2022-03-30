@@ -35,7 +35,6 @@ public class EndPartyApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
-		System.out.println("token " + token2);
 		try (InputStream input = EndPartyApi.class.getClassLoader().getResourceAsStream("/config.properties")) {
 			Properties prop = new Properties();
 			prop.load(input);
@@ -59,9 +58,7 @@ public class EndPartyApi extends HttpServlet {
 		doGet(request, response);
 		String name = request.getParameter("name");
 		int win = Integer.parseInt(request.getParameter("win"));
-		System.out.println(name + " " + win);
 		UserSQL uSQL = new UserSQL();
-
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
 		if (uSQL.changeNbParty(name, win)) {
 			output.println("success");

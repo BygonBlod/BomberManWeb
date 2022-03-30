@@ -35,7 +35,7 @@ public class ConnexionApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String token2 = request.getHeader("Accept");
-		System.out.println("token " + token2);
+		// System.out.println("token " + token2);
 		try (InputStream input = ConnexionApi.class.getClassLoader().getResourceAsStream("/config.properties")) {
 			Properties prop = new Properties();
 			prop.load(input);
@@ -59,8 +59,6 @@ public class ConnexionApi extends HttpServlet {
 		UserSQL uSQL = new UserSQL();
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
-		System.out.println(name + " : " + pwd);
-		System.out.println(request.getAttributeNames().toString());
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
 		if (uSQL.connexion(name, pwd) != null) {
 			output.println("success");
