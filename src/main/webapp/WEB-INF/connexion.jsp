@@ -17,6 +17,6 @@
 		    <input type="password" name="pwd" id="pwd" required></br>
 		    <input type="submit" value="Connexion!">
 	</form>
-	<p>Si vous n'avez pas de compte vous pouvez vous inscrire ici :<a href="/Oui/inscription">inscription</a></p>
+	<p>Si vous n'avez pas de compte vous pouvez vous inscrire ici :<a href="/BomberManWeb/inscription">inscription</a></p>
     </body>
 </html>

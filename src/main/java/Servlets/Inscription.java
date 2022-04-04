@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BD.UserSQL;
+import Bean.Form;
 import Bean.User;
 import dao.factory.DBDaoFactory;
 import dao.factory.DaoFactory;
 import dao.user.UserDao;
-import dao.user.UserDb;
 
 /**
  * Servlet implementation class Inscription
@@ -32,7 +32,6 @@ public class Inscription extends HttpServlet {
 		super();
 		DaoFactory daoFactory = new DBDaoFactory();
 		userDao = daoFactory.getUserDao();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -60,18 +59,19 @@ public class Inscription extends HttpServlet {
 		}
 		user.setName(name);
 		user.setPassword(pwd);
-
-		if (userDao.exist(name)){
-			user.setWrongConnect(true);
-		} else {
-			userDao.inscrire(name, pwd);
-			user.setConnect(true);
-			user.setWrongConnect(false);
+		if (Form.isCorrectForm(name, pwd)) {
+			if (userDao.exist(name)) {
+				user.setWrongConnect(true);
+			} else {
+				userDao.inscrire(name, pwd);
+				user.setConnect(true);
+				user.setWrongConnect(false);
+			}
 		}
 
 		session.setAttribute("user", user);
 		if (user.isConnect()) {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+			response.sendRedirect("/BomberManWeb/");
 		} else {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
 		}

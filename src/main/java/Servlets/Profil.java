@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import BD.UserSQL;
 import Bean.User;
 
 /**
@@ -37,8 +36,7 @@ public class Profil extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			UserSQL uSQL = new UserSQL();
-			user = new User(uSQL);
+			user = new User();
 			session.setAttribute("user", user);
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);

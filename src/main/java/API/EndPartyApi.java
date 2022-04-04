@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import BD.UserSQL;
+import Bean.Form;
+import dao.factory.DBDaoFactory;
+import dao.factory.DaoFactory;
+import dao.user.UserDao;
 
 /**
  * Servlet implementation class EndParty
@@ -19,13 +22,15 @@ import BD.UserSQL;
 @WebServlet("/EndPartyApi")
 public class EndPartyApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UserDao userDao;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public EndPartyApi() {
 		super();
-		// TODO Auto-generated constructor stub
+		DaoFactory daoFactory = new DBDaoFactory();
+		userDao = daoFactory.getUserDao();
 	}
 
 	/**
@@ -54,14 +59,15 @@ public class EndPartyApi extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 		String name = request.getParameter("name");
 		int win = Integer.parseInt(request.getParameter("win"));
-		UserSQL uSQL = new UserSQL();
+
 		PrintWriter output = new PrintWriter(response.getOutputStream(), true);
-		if (uSQL.changeNbParty(name, win)) {
-			output.println("success");
+		if (Form.isCorrectFormNa(name)) {
+			if (userDao.changeNbParty(name, win)) {
+				output.println("success");
+			}
 		}
 	}
 
