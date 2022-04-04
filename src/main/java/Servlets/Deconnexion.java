@@ -36,7 +36,7 @@ public class Deconnexion extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		user.deconnection();
 		session.setAttribute("user", user);
-		response.sendRedirect("/Oui/");
+		response.sendRedirect("/BomberManWeb/");
 	}
 
 	/**
