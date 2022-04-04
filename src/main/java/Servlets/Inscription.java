@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import BD.UserSQL;
 import Bean.User;
+import dao.factory.DBDaoFactory;
+import dao.factory.DaoFactory;
+import dao.user.UserDao;
+import dao.user.UserDb;
 
 /**
  * Servlet implementation class Inscription
@@ -19,11 +23,15 @@ import Bean.User;
 public class Inscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private UserDao userDao;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Inscription() {
 		super();
+		DaoFactory daoFactory = new DBDaoFactory();
+		userDao = daoFactory.getUserDao();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -52,11 +60,11 @@ public class Inscription extends HttpServlet {
 		}
 		user.setName(name);
 		user.setPassword(pwd);
-		UserSQL uSQL = new UserSQL();
-		if (uSQL.exist(name)) {
+
+		if (userDao.exist(name)){
 			user.setWrongConnect(true);
 		} else {
-			uSQL.ajouterUser(name, pwd);
+			userDao.inscrire(name, pwd);
 			user.setConnect(true);
 			user.setWrongConnect(false);
 		}
