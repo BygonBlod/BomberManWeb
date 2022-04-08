@@ -57,9 +57,10 @@ public class Inscription extends HttpServlet {
 			UserSQL uSQL = new UserSQL();
 			user = new User(uSQL);
 		}
-		user.setName(name);
-		user.setPassword(pwd);
+
 		if (Form.isCorrectForm(name, pwd)) {
+			user.setName(name);
+			user.setPassword(pwd);
 			if (userDao.exist(name)) {
 				user.setWrongConnect(true);
 			} else {

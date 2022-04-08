@@ -54,9 +54,9 @@ public class Connexion extends HttpServlet {
 		if (user == null) {
 			user = new User();
 		}
-		user.setName(name);
-		user.setPassword(pwd);
 		if (Form.isCorrectForm(name, pwd)) {
+			user.setName(name);
+			user.setPassword(pwd);
 			if (userDao.login(name, pwd)) {
 				User u = userDao.get(name);
 				user.setConnect(true);
